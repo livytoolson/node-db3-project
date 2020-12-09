@@ -38,17 +38,17 @@ function findSteps(id) {
 }
 
 function add(scheme) {
-    return db('scheme').insert(scheme)
+    return db('schemes').insert(scheme)
 }
 
 function update(changes, id) {
-    return db('scheme').where({ id }).update(changes)
+    return db('schemes').where({ id }).update(changes)
     .then(() => {
         return findById(id)
     })
 }
 
 function remove(id) {
-    return db('db').where({ id }).del()
+    return db('schemes').where({ id }).del()
     // resolves to null on an invalid id
 }
