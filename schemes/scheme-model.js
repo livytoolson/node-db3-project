@@ -19,7 +19,6 @@ function findById(id) {
     // On an invalid id, resolves to null, perhaps by doing
     // if (!schemaObject) return Promise.resolve(null)
 }
-
 function findSteps(id) {
     // SELECT
     //     steps.id,
@@ -33,8 +32,9 @@ function findSteps(id) {
     // ORDER BY steps.step_number;
     return db('steps')
     .select('steps.id', 'schemes.scheme_name', 'steps.step_number', 'steps.instructions')
+    .join('schemes', 'schemes.id', 'steps.scheme_id')
     .where({scheme_id: id})
-    .orderBy('steps.steps_number')
+    .orderBy('steps.step_number')
 }
 
 function add(scheme) {
