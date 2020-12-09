@@ -39,6 +39,9 @@ function findSteps(id) {
 
 function add(scheme) {
     return db('schemes').insert(scheme)
+    .then((id) => {
+        return db('schemes').where({ id }).first()
+    })
 }
 
 function update(changes, id) {
