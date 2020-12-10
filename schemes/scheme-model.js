@@ -67,9 +67,4 @@ async function remove(id) {
     } else {
         return removedObj
     }
-    // const deleted = db('schemes').where({ id }).first()
-    // db('schemes').where({ id }).del();
-    // return deleted;
-    // return db('schemes').where({ id }).del()
-    // resolves to null on an invalid id
 }
