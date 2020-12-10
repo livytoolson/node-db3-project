@@ -5,7 +5,7 @@ const config = require('../knexfile');
 
 const db = knex(
     process.env.NODE_ENV === 'production'
-    ? config.productions
+    ? config.production
     : config.development
 );
 

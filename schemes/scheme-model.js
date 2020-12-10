@@ -15,10 +15,14 @@ function find() {
 }
 
 function findById(id) {
-    return db('schemes').where({ id }).first()
-    // On an invalid id, resolves to null, perhaps by doing
-    // if (!schemaObject) return Promise.resolve(null)
+    const schemaObject = db('schemes').where({ id }).first()
+    if (!schemaObject) {
+        return null
+    } else {
+        return schemaObject
+    }
 }
+
 function findSteps(id) {
     // SELECT
     //     steps.id,
@@ -38,7 +42,8 @@ function findSteps(id) {
 }
 
 function add(scheme) {
-    return db('schemes').insert(scheme)
+    return db('schemes')
+    .insert(scheme)
     .then((id) => {
         return db('schemes').where({ id }).first()
     })
@@ -51,7 +56,20 @@ function update(changes, id) {
     })
 }
 
-function remove(id) {
-    return db('schemes').where({ id }).del()
+async function remove(id) {
+    const removedObj = await findById(id)
+    const remove = db('schemes').where({ id }).del()
+    .then(() => {
+        return findById(id)
+    })
+    if (!remove) {
+        return null
+    } else {
+        return removedObj
+    }
+    // const deleted = db('schemes').where({ id }).first()
+    // db('schemes').where({ id }).del();
+    // return deleted;
+    // return db('schemes').where({ id }).del()
     // resolves to null on an invalid id
 }
